@@ -48,6 +48,7 @@ async function login(req, res) {
 async function editUser(req, res) {
   try {
     const { userId } = req.user;
+    console.log(userId);
 
     // Find the user by ID
     const user = await User.findById(userId);
