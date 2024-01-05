@@ -14,7 +14,7 @@ router.get("/api/test", function (req, res) {
 });
 router.post("/api/signup", signUp);
 router.post("/api/login", login);
-router.post("/api/edit", verifyToken, editUser);
-router.post("/api/delete", verifyToken, deleteUser);
+router.put("/api/edit", verifyToken, editUser);
+router.delete("/api/delete", verifyToken, deleteUser);
 
 export default router;
