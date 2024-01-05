@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 import dotenv from "dotenv";
@@ -34,8 +35,12 @@ async function login(req, res) {
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid username or password" });
     }
-
-    res.json({ message: "Login successful!" });
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.json({ token, message: "Login successful!" });
   } catch (err) {
     console.log(err);
   }
