@@ -5,14 +5,11 @@ import dbConnect from "./util/dbConnect.js";
 import authRoute from "./routes/authRoute.js";
 
 const app = express();
+app.use(express.json());
 
 dbConnect();
 const PORT = 5000 || process.env.PORT;
-app.use(express.json());
 
-app.use("/", (req, res) => {
-  res.send("<h1>App is running successfully</h1>");
-});
 app.use("/", authRoute);
 
 app.listen(PORT, function () {
