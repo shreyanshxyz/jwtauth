@@ -1,15 +1,36 @@
+import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/login", {
+        username,
+        password,
+      });
+
+      const { token } = res.data;
+
+      token
+        ? localStorage.setItem("token", token)
+        : console.log("no token, probably a problem with JWT");
+
+      window.location.href = "/";
+      navigate("/");
+      console.log(token);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  console.log(username, password);
+  // console.log(username, password);
   return (
     <div className="form" onSubmit={handleSubmit}>
       <h1>Login</h1>
