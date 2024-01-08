@@ -1,14 +1,29 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  console.log(username, password);
+  function handleSubmit(e) {
+    e.preventDefault();
 
+    try {
+      axios
+        .post("http://localhost:5000/api/signup", {
+          username,
+          password,
+        })
+        .then((result) => console.log(result));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
-    <div className="form">
+    <div className="form" onSubmit={handleSubmit}>
       <h1>Sign Up</h1>
       <form>
         <div className="input-container">

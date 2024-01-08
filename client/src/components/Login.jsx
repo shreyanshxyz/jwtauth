@@ -5,9 +5,13 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   console.log(username, password);
   return (
-    <div className="form">
+    <div className="form" onSubmit={handleSubmit}>
       <h1>Login</h1>
       <form>
         <div className="input-container">
