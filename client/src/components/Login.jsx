@@ -27,6 +27,7 @@ function Login() {
       console.log(token);
     } catch (err) {
       console.log(err);
+      alert(`${err.response.data.error}`);
     }
   }
 
